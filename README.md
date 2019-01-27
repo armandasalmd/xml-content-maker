@@ -1,6 +1,6 @@
 # Xml content maker
 
-Custom xml content maker is a program that was used to create articles and exercises as XML. This xml file that was used in android app to generate layout and challenges. That Android app was not realised but this app could be REUSED to generate other layouts!
+Custom xml content maker is a program that was used to create articles and exercises as XML. This xml file that was used in android app to generate layout and challenges. That Android app was not realised but 'xml content maker' could be REUSED to generate different layouts!
 
 ## Built With
 
