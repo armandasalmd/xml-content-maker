@@ -1,0 +1,13 @@
+<Layout >
+	<View type="text" content="Title text" style="bold" textColor="#8B0000" textSize="25" align="center" />
+	<View type="nextLine" />
+	<View type="text" content="What is the name of Microsoft founder?" style="italic" />
+	<View type="field" answer="Bill Gates" maxLenght="6" />
+	<View type="group_radio" correct="2,3" >
+		<Item title="Tom Tom" />
+		<Item title="Bill Gates" />
+		<Item title="Paul Allen" />
+		<Item title="Nobody knows" textColor="#FF0000" />
+	<View />
+	<View type="nextLine" />
+</Layout>
