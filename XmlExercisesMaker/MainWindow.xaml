@@ -1,0 +1,174 @@
+﻿<Controls:MetroWindow x:Class="XmlExercisesMaker.MainWindow"
+                      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                      xmlns:Controls="clr-namespace:MahApps.Metro.Controls;assembly=MahApps.Metro"
+                      xmlns:simpleChildWindow="clr-namespace:MahApps.Metro.SimpleChildWindow;assembly=MahApps.Metro.SimpleChildWindow"
+                      xmlns:sys="clr-namespace:System;assembly=mscorlib"
+                      WindowStartupLocation="CenterScreen"
+                      GlowBrush="LightCoral" ResizeMode="CanResizeWithGrip" AllowsTransparency="True"
+                      Title="Xml užduočių kūrimas" Height="800" Width="960" MinWidth="800" MinHeight="600">
+
+    <Window.Resources>
+        <sys:String x:Key="AppTitle">Xml užduočių kūrimas</sys:String>
+        <sys:String x:Key="SaveAs">Išsaugoti kaip</sys:String>
+        <sys:String x:Key="About">Apie</sys:String>
+
+        <sys:String x:Key="Text">Gautas tekstas:</sys:String>
+        <sys:String x:Key="ViewsTree">Schemos vaizdai:</sys:String>
+        <sys:String x:Key="AddView">Pridėti naują vaizdą(po schemoje pažymėtu):</sys:String>
+        <sys:String x:Key="Properties">Vaizo nustatymai:</sys:String>
+        <sys:String x:Key="MainTextTip">Tekstas, kuris bus išsaugomas</sys:String>
+
+        <!-- View settings labels -->
+        <sys:String x:Key="AboutProgram">Programos aprašymas</sys:String>
+    </Window.Resources>
+    <Controls:MetroWindow.RightWindowCommands>
+        <Controls:WindowCommands>
+            <Button Click="SaveText">
+                <StackPanel>
+                    <Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="18" Source="https://cdn2.iconfinder.com/data/icons/designers-and-developers-icon-set/32/save-32.png" />
+                            <TextBlock Margin="6, 0, 0, 0" Text="{StaticResource SaveAs}" />
+                        </StackPanel>
+                    </Label>
+                </StackPanel>
+            </Button>
+            <Button Click="AboutClick">
+                <StackPanel>
+                    <Label>
+                        <StackPanel Orientation="Horizontal">
+                            <Image Height="18" Source="https://cdn3.iconfinder.com/data/icons/media-icons-23/100/info2-32.png" />
+                            <TextBlock Margin="6, 0, 0, 0" Text="{StaticResource About}" IsEnabled="False" />
+                        </StackPanel>
+                    </Label>
+                </StackPanel>
+            </Button>
+        </Controls:WindowCommands>
+    </Controls:MetroWindow.RightWindowCommands>
+    <Grid>
+        <simpleChildWindow:ChildWindow x:Name="info_window" ChildWindowWidth="550"
+                                       Background="LightGoldenrodYellow"
+                                       EnableDropShadow="True" Title="{StaticResource AboutProgram}">
+            <StackPanel HorizontalAlignment="Center" Margin="8">
+                <StackPanel Margin="20,0,20,15">
+                    <TextBlock TextWrapping="Wrap" HorizontalAlignment="Center"  FontSize="15">
+                        <Italic>Ši programa skrita kūrti užduotis ir kitus mokomuosius straipsnius, kurie vėliau
+                        yra perkeliami į Android aplikaciją.</Italic>
+                    </TextBlock>
+                </StackPanel>
+                <Button Background="Gray" Margin="10" Width="120" Click="AboutClose">Uždaryti info</Button>
+            </StackPanel>
+        </simpleChildWindow:ChildWindow>
+        <!-- Main content -->
+        <Grid Background="AliceBlue">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*" />
+                <ColumnDefinition Width="5*" />
+                <ColumnDefinition Width="3*" />
+            </Grid.ColumnDefinitions>
+
+            <!-- ViewsTree -->
+            <Border BorderBrush="#33691E" BorderThickness="0,0,2,2">
+
+                <DockPanel Name="viewTreePanel" Background="#8BC34A">
+                    <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                        <Button Content="Ištrinti" Click="btnDeleteView" Foreground="Red" Margin="5" Width="150" />
+                    </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel DockPanel.Dock="Top">
+                            <TextBlock FontWeight="Medium" Background="#FFAFB42B" Padding="0,4" FontSize="15" 
+                                 TextAlignment="Center" DockPanel.Dock="Top" Text="{StaticResource ViewsTree}"/>
+                            <ListBox Name="mListBox" Margin="6,8" Padding="4,6" DockPanel.Dock="Top"
+                                 ItemsSource="{Binding ViewTree}" DisplayMemberPath="Title"
+                                 Background="Transparent" />
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+
+            </Border>
+
+            <!-- Middle Part -->            
+            <DockPanel Grid.Column="1">
+
+                <!-- AddView -->
+                <Border DockPanel.Dock="Bottom" Height="160" BorderBrush="#33691E" BorderThickness="0,2,0,0">
+                    <Grid Background="#AED581">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*" />
+                            <ColumnDefinition Width="*" />
+                        </Grid.ColumnDefinitions>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="Auto" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+
+                        <TextBlock Grid.ColumnSpan="2" FontWeight="Medium" Background="#689F38" Padding="0,4" FontSize="15" 
+                           TextAlignment="Center" Text="{StaticResource AddView}"/>
+                        <!-- Text, Field, NextLine -->
+                        <StackPanel Name="addPanel1" Grid.Row="1" HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <Button Click="Button_CreateNew" Width="120" BorderThickness="0" Background="#D2D2D2" Margin="6">Tekstas</Button>
+                            <Button Click="Button_CreateNew" BorderThickness="0" Background="#D2D2D2" Margin="6">Atsakymų laukas</Button>
+                            <Button Click="Button_CreateNew" BorderThickness="0" Background="#D2D2D2" Margin="6">Kita eilutė</Button>
+                        </StackPanel>
+                        <!-- Radio, GroupSpinner, CheckGroup -->
+                        <Border Grid.Row="1" Grid.Column="1" BorderBrush="#33691E" BorderThickness="2,0,0,0">
+                            <StackPanel Name="addPanel2" HorizontalAlignment="Center" VerticalAlignment="Center">
+                                <Button Click="Button_CreateNew" Width="120" BorderThickness="0" Background="#D2D2D2" Margin="6">Radio grupė</Button>
+                                <Button Click="Button_CreateNew" BorderThickness="0" Background="#D2D2D2" Margin="6">Spinner grupė</Button>
+                                <Button Click="Button_CreateNew" BorderThickness="0" Background="#D2D2D2" Margin="6">Check grupė</Button>
+                            </StackPanel>
+                        </Border>
+                    </Grid>
+
+                </Border>
+                <!-- Text -->
+                <Border BorderBrush="#33691E">
+                    <StackPanel Name="textPanel" Background="#C5E1A5">
+                        <TextBlock FontWeight="Medium" Background="#689F38" Padding="0,4" FontSize="15" 
+                           TextAlignment="Center" Text="{StaticResource Text}"/>
+                        <ScrollViewer VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                            <StackPanel>
+                                <TextBox IsReadOnly="True" Text="{Binding Path=mText, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" 
+                                 Name="mainText" BorderThickness="0" AcceptsReturn="True" Height="Auto"
+                                 Background="Transparent" TextWrapping="Wrap" ToolTip="{StaticResource MainTextTip}" />
+                            </StackPanel>
+                        </ScrollViewer>
+                    </StackPanel>
+                </Border>
+
+            </DockPanel>
+
+            <!-- Properties -->
+            <Border Grid.Column="2" BorderBrush="#33691E" BorderThickness="2,0,0,0">
+                <DockPanel Background="#8BC34A">
+                    <StackPanel DockPanel.Dock="Bottom" HorizontalAlignment="Center">
+                        <Button Content="Išsaugoti" Click="btnSaveDetails" Foreground="Red" Margin="5" Width="150" />
+                    </StackPanel>
+                    <ScrollViewer VerticalScrollBarVisibility="Auto">
+                        <StackPanel Name="propertiesPanel" DockPanel.Dock="Top" Background="#8BC34A">
+                            <TextBlock FontWeight="Medium" Background="#AFB42B" Padding="0,4" FontSize="15" 
+                           TextAlignment="Center" Text="{StaticResource Properties}"/>
+                            <TextBlock Name="PropertiesTitle" FontStyle="Italic" Background="#FF729C48"
+                               Padding="0,4" FontSize="15" TextAlignment="Center"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Auto">
+                                <StackPanel Name="MainProperties" >
+                                    <ItemsControl ItemsSource="{Binding Settings}">
+                                        <ItemsControl.ItemsPanel>
+                                            <ItemsPanelTemplate>
+                                                <StackPanel  IsItemsHost="True" />
+                                            </ItemsPanelTemplate>
+                                        </ItemsControl.ItemsPanel>
+                                    </ItemsControl>
+                                </StackPanel>
+                            </ScrollViewer>
+
+                        </StackPanel>
+                    </ScrollViewer>
+                </DockPanel>
+            </Border>
+        </Grid>
+
+    </Grid>
+
+</Controls:MetroWindow>
